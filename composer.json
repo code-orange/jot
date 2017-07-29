@@ -2,6 +2,7 @@
 	"name": "code-orange/jot",
 	"description": "Laravel package that generates RESTful API documentation in Markdown based on PHPDoc.",
 	"keywords": [
+		"laravel",
 		"phpdoc",
 		"documentation"
 	],
