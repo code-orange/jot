@@ -15,6 +15,8 @@
 @endif
 
 @if ($endpoint->getReturn()->getType() == CodeOrange\Jot\Docs\ReturnValue::$JSON)
+> Response
+
 ```json
 {!! $endpoint->getReturn()->getValue() !!}
 ```
