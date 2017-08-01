@@ -1,8 +1,8 @@
 ## {{$endpoint->getName()}}
 
-{{$endpoint->getDescription()}}
-
 `{{$endpoint->getMethod()}} {{$endpoint->getUri()}}`
+
+{!! $endpoint->getDescription() !!}
 
 @if (count($endpoint->getParams()) > 0)
 ### Parameters
