@@ -39,4 +39,8 @@ class CoverageCheckCommand extends Command {
 			exit(1);
 		}
 	}
+
+	public function handle() {
+		self::fire();
+	}
 }

@@ -24,4 +24,8 @@ class ApiDocsGenerator extends Command {
 		$docs = $this->markdown->getMarkdownDocumentation($resources);
 		$this->info($docs);
 	}
+
+	public function handle() {
+		self::fire();
+	}
 }
