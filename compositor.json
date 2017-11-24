@@ -1,0 +1,138 @@
+{
+  "name": "code-orange/jot",
+  "version": "0.1.4",
+  "libraries": {
+    "xv": "^1.1.25"
+  },
+  "title": "Jot",
+  "branch": "master",
+  "style": {
+    "name": "Default",
+    "componentSet": {
+      "nav": "nav/BasicNav",
+      "header": "header/BannerHeader",
+      "article": "article/BasicArticle",
+      "footer": "footer/BasicFooter"
+    },
+    "fontFamily": "-apple-system, BlinkMacSystemFont, sans-serif",
+    "fontWeight": 400,
+    "bold": 600,
+    "lineHeight": 1.5,
+    "typeScale": [
+      72,
+      48,
+      24,
+      20,
+      16,
+      14,
+      12
+    ],
+    "monospace": "Menlo, monospace",
+    "heading": {
+      "fontFamily": null,
+      "fontStyle": null,
+      "fontWeight": 600,
+      "lineHeight": 1.25,
+      "textTransform": null,
+      "letterSpacing": null
+    },
+    "h0": {},
+    "h1": {},
+    "h2": {},
+    "h3": {},
+    "h4": {},
+    "h5": {},
+    "h6": {},
+    "alternativeText": {},
+    "space": [
+      0,
+      8,
+      16,
+      32,
+      48,
+      64,
+      96
+    ],
+    "layout": {
+      "maxWidth": 1024,
+      "centered": false
+    },
+    "colors": {
+      "text": "#111",
+      "background": "#fff",
+      "primary": "#08e",
+      "secondary": "#059",
+      "highlight": "#e08",
+      "border": "#ddd",
+      "muted": "#eee"
+    },
+    "border": {
+      "width": 1,
+      "radius": 2
+    },
+    "link": {},
+    "button": {
+      "hover": {
+        "boxShadow": "inset 0 0 0 999px rgba(0, 0, 0, .125)"
+      }
+    },
+    "input": {},
+    "body": {
+      "margin": 0
+    },
+    "breakpoints": {
+      "xs": "@media screen and (max-width:40em)",
+      "sm": "@media screen and (min-width:40em)",
+      "md": "@media screen and (min-width:52em)",
+      "lg": "@media screen and (min-width:64em)"
+    }
+  },
+  "content": [
+    {
+      "component": "nav",
+      "links": [
+        {
+          "href": "https://github.com/code-orange/jot",
+          "text": "GitHub"
+        }
+      ]
+    },
+    {
+      "component": "header",
+      "heading": "jot",
+      "subhead": "Laravel package that generates RESTful API documentation in Markdown based on PHPDoc",
+      "children": [
+        {
+          "component": "ui/TweetButton",
+          "text": "jot: Laravel package that generates RESTful API documentation in Markdown based on PHPDoc",
+          "url": null
+        },
+        {
+          "component": "ui/GithubButton",
+          "user": "code-orange",
+          "repo": "jot"
+        }
+      ]
+    },
+    {
+      "component": "article",
+      "metadata": {
+        "source": "github.readme"
+      },
+      "html": "\n<p>Jot is a Laravel package that generates RESTful API documentation in Markdown based on PHPDoc.</p>\n<h1>Installation</h1>\n<p>To install jot with composer:</p>\n<pre><span class=\"hljs-symbol\">composer</span> <span class=\"hljs-meta\">require</span> <span class=\"hljs-meta\">code</span>-orange/jot</pre><h3>Laravel 5.5+</h3>\n<p>If you&apos;re using Laravel 5.5 or above, the package will automatically register the <code>Jot</code> provider.</p>\n<h3>Laravel 5.4</h3>\n<p>Add <code>CodeOrange\\Jot\\JotServiceProvider::class</code> to the <code>providers</code> array in <code>config/app.php</code>.</p>\n<h1>Configuration</h1>\n<p>You can use <code>php artisan vendor:publish</code> to publish the jot configuration to your application:</p>\n<pre>php artisan vendor:publish --provider=CodeOrange<span class=\"hljs-symbol\">\\\\</span>Jot<span class=\"hljs-symbol\">\\\\</span>JotServiceProvider</pre><p>Then, update <code>config/jot.php</code>.</p>\n<h1>Usage</h1>\n<h2>Generating documentation</h2>\n<p>First, document your controller actions with PHPDoc.</p>\n<pre><span class=\"hljs-class\"><span class=\"hljs-keyword\">class</span> <span class=\"hljs-title\">MyController</span> </span>{\n    <span class=\"hljs-comment\">/**\n     * Returns a value\n     *\n     * This method returns a cool value.\n     *\n     * <span class=\"hljs-doctag\">@param</span> mixed $b Some value\n     * <span class=\"hljs-doctag\">@return</span> JsonResponse {\n     *                          &quot;a&quot;: 1,\n     *                          &quot;b&quot;: &quot;Example&quot;\n     *                      }\n     */</span>\n    <span class=\"hljs-keyword\">public</span> <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span> <span class=\"hljs-title\">myAction</span><span class=\"hljs-params\">(Request $r)</span> </span>{\n        <span class=\"hljs-keyword\">return</span> response()-&gt;json([\n            <span class=\"hljs-string\">&apos;a&apos;</span> =&gt; <span class=\"hljs-number\">1</span>,\n            <span class=\"hljs-string\">&apos;b&apos;</span> =&gt; $r-&gt;get(<span class=\"hljs-string\">&apos;b&apos;</span>)\n        ]);\n    }\n}</pre><p>Then, run <code>php artisan jot:generate</code>.\nMarkdown documenting your API will be printed to your console.</p>\n<pre><span class=\"hljs-section\">## Returns a value</span>\n\nThis method returns a cool value.\n\n<span class=\"hljs-code\">`GET /example`</span>\n\n<span class=\"hljs-section\">### Parameters</span>\n\n| Name | Located in | Description | Type |\n| ---- | ---------- | ----------- | ---- |\n|b|request|Some value|mixed|\n|account|path|||\n\n<span class=\"hljs-code\">```json\n{\n    &quot;a&quot;: 1,\n    &quot;b&quot;: &quot;Example&quot;\n}\n```</span></pre><p>You can then add this Markdown to whatever you use to publish your docs.\nThat can just be a Markdown file on GitHub, a wiki, or a self-hosted documentation site.</p>\n<p>The Markdown is compatible with <a href=\"https://github.com/lord/slate\">lord/slate</a>, which is what we&apos;re using at <a href=\"https://github.com/odysseyattribution/\">Odyssey</a> to publish our documentation.</p>\n<h2>Checking documentation coverage</h2>\n<p>Jot can also check if all of your public API methods are properly documented, for instance as part of your CI test pipeline.</p>\n<pre><span class=\"hljs-selector-tag\">php</span> <span class=\"hljs-selector-tag\">artisan</span> <span class=\"hljs-selector-tag\">jot</span><span class=\"hljs-selector-pseudo\">:coverage</span></pre><p>will exit with an error status code if there is a method in your API that is not documented.</p>\n<p>Optionally, you can use <code>--return</code> to force all methods to have a documented return type/example.</p>\n<h1>Motivation</h1>\n<p>This project is heavily inspired by <a href=\"https://github.com/f2m2/apidocs\">f2m2/apidocs</a>.\nWhile that project generates excellent documentation, I didn&apos;t like the idea of a Laravel app hosting its own documentation (something that can be done statically and that probably has much different access patterns).</p>\n<p>Jot allows you to separate generation and publication of your API docs.</p>\n"
+    },
+    {
+      "component": "footer",
+      "links": [
+        {
+          "href": "https://github.com/code-orange/jot",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://github.com/code-orange",
+          "text": "code-orange"
+        }
+      ]
+    }
+  ]
+}
