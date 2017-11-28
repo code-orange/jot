@@ -112,6 +112,12 @@
           "user": "code-orange",
           "repo": "jot"
         }
+      ],
+      "links": [
+        {
+          "href": "https://blog.code-orange.nl/building-jot-904f4672a75",
+          "text": "Blog post"
+        }
       ]
     },
     {
