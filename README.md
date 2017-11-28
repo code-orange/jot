@@ -104,3 +104,5 @@ This project is heavily inspired by [f2m2/apidocs](https://github.com/f2m2/apido
 While that project generates excellent documentation, I didn't like the idea of a Laravel app hosting its own documentation (something that can be done statically and that probably has much different access patterns).
 
 Jot allows you to separate generation and publication of your API docs.
+
+Read more about building Jot in [this blogpost](https://blog.code-orange.nl/building-jot-904f4672a75).
