@@ -17,6 +17,7 @@ class RouteDocumentation {
 	protected $description;
 	protected $params;
 	protected $return;
+	protected $deprecated;
 
 	public $resource;
 
@@ -63,6 +64,13 @@ class RouteDocumentation {
 			$this->return = new ReturnValue($type, $tag->getDescription());
 		} else {
 			$this->return = new ReturnValue(ReturnValue::$OTHER, '');
+		}
+
+		$deprecation = $docBlock->getTagsByName('deprecated');
+		if (count($deprecation) > 0) {
+			$tag = $deprecation[0];
+			$notice = $tag->getContent();
+			$this->deprecated = empty($notice) ? true : $notice;
 		}
 	}
 
@@ -149,6 +157,14 @@ class RouteDocumentation {
 
 	public function getResource() {
 		return $this->resource;
+	}
+
+	public function isDeprecated() {
+		return isset($this->deprecated);
+	}
+
+	public function getDeprecationMessage() {
+		return ($this->deprecated === true) ? false : $this->deprecated;
 	}
 }
 

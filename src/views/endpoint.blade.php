@@ -4,6 +4,14 @@
 
 {!! $endpoint->getDescription() !!}
 
+@if ($endpoint->isDeprecated())
+@if ($message = $endpoint->getDeprecationMessage())
+<aside class="warning"><strong>Deprecated:</strong> {{$message}}</aside>
+@else
+<aside class="warning"><strong>Deprecated</strong></aside>
+@endif
+@endif
+
 @if (count($endpoint->getParams()) > 0)
 ### Parameters
 
