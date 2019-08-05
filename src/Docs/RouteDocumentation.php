@@ -83,7 +83,7 @@ class RouteDocumentation {
 	 * @return bool
 	 */
 	public function applyFilter($prefix) {
-		if ($prefix[0] !== '/') {
+		if (empty($prefix) || $prefix[0] !== '/') {
 			$prefix = '/' . $prefix;
 		}
 
@@ -105,7 +105,7 @@ class RouteDocumentation {
 	}
 
 	private function setUri($uri) {
-		if ($uri[0] !== '/') {
+		if (empty($uri) || $uri[0] !== '/') {
 			$uri = '/' . $uri;
 		}
 		$this->uri = $uri;
