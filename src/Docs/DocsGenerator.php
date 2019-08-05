@@ -29,6 +29,8 @@ class DocsGenerator {
 	public function getRouteDocumentation() {
 		return collect($this->router->getRoutes())->map(function (Route $route) {
 			return new RouteDocumentation($route);
+		})->unique(function (RouteDocumentation $r) {
+			return $r->getUri();
 		})->filter(function (RouteDocumentation $r) {
 			return $r->applyFilter(config('jot.prefix'));
 		});
