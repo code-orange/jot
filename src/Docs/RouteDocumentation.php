@@ -131,6 +131,10 @@ class RouteDocumentation {
 		$this->params = $params;
 	}
 
+	public function getKey() {
+		return $this->method . '-' . $this->uri;
+	}
+
 	public function getMethod() {
 		return $this->method;
 	}
