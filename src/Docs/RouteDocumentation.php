@@ -3,6 +3,7 @@ namespace CodeOrange\Jot\Docs;
 
 
 use Illuminate\Routing\Route;
+use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlock;
 use ReflectionClass;
 use ReflectionException;
@@ -25,6 +26,8 @@ class RouteDocumentation {
 		$this->method = $route->methods()[0];
 		$this->setUri($route->uri());
 
+		$factory = DocBlockFactory::createInstance();
+
 		// Load DocBlock
 		$array = explode("@", $route->getActionName());
 		$class = $array[0];
@@ -36,7 +39,7 @@ class RouteDocumentation {
 		$methodName = (count($array) > 1) ? $array[1] : '';
 		$reflector = new ReflectionClass($class);
 		try {
-			$docBlock = new DocBlock($reflector->getMethod($methodName));
+			$commentBlock = $reflector->getMethod($methodName)->getDocComment();
 		} catch (ReflectionException $e) {
 			echo "Warning: method $methodName not found in $class\n";
 			// Quick work-around to skip Closure based routes
@@ -44,9 +47,14 @@ class RouteDocumentation {
 			return;
 		}
 
+		if (!$commentBlock) {
+			$commentBlock = '/** */';
+		}
+		$docBlock = $factory->create($commentBlock);
+
 		// Set properties
-		$this->name = $docBlock->getShortDescription();
-		$this->description = $docBlock->getLongDescription()->getContents();
+		$this->name = $docBlock->getSummary();
+		$this->description = $docBlock->getDescription()->render();
 
 		$this->processParameters($route, $docBlock);
 

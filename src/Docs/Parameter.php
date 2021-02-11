@@ -1,7 +1,7 @@
 <?php
 namespace CodeOrange\Jot\Docs;
 
-use phpDocumentor\Reflection\DocBlock\Tag;
+use phpDocumentor\Reflection\DocBlock\Tags\Param;
 
 /**
  * Represents a documented parameter, either in the route or in the request
@@ -19,8 +19,8 @@ class Parameter {
 		$this->in = $in;
 	}
 
-	public static function fromTag(Tag\ParamTag $param) {
-		return new static(str_replace('$', '', $param->getVariableName()), $param->getDescription(), $param->getType(), 'request');
+	public static function fromTag(Param $param) {
+		return new static($param->getVariableName(), $param->getDescription()->render(), (string)$param->getType(), 'request');
 	}
 
 	public static function fromRouteParameter($name) {
